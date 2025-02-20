@@ -9,11 +9,24 @@ body::-webkit-scrollbar-track {
 }
 
 body::-webkit-scrollbar-thumb {
-  background-color: #212529;
+  background-color: #3a1f42;
 }
 
 .navbar {
   font-family: "Lato", sans-serif;
+  background-color: #3a1f42 !important;
+}
+
+.bg-body-tertiary {
+  background-color: #3a1f42 !important;
+}
+
+.navbar-nav .nav-link {
+  color: rgba(255, 255, 255, 0.85) !important;
+}
+
+.navbar-nav .nav-link.active {
+  color: white !important;
 }
 
 body {
@@ -36,26 +49,36 @@ body {
   letter-spacing: 0.08rem;
   margin-top: 1rem;
   margin-bottom: 1rem;
+  margin: 2rem 0;
+  color: #3a1f42;
 }
 
 #side-heading {
   font-weight: bold;
   font-size: 1.3rem;
   margin-bottom: 1rem;
+  color: #3a1f42;
 }
 
 .table-container {
   overflow-x: auto;
   margin-bottom: 1.5rem;
   font-size: 0.9rem;
+  margin: 2rem 0;
 }
 
 .table-container table {
   width: 100%;
 }
 
+.card {
+  border-color: #3a1f42;
+}
+
 .card-header {
   font-size: 1.3rem;
+  background-color: #3a1f42;
+  color: white;
 }
 
 .row {
@@ -64,7 +87,17 @@ body {
 
 .footer__title {
   padding: 1rem;
-  background-color: #212529;
+  background-color: #3a1f42;
   color: #ffffff;
   margin-bottom: -1rem;
+}
+
+/* Style for the table */
+.table {
+  border-color: #3a1f42;
+}
+
+.table thead th {
+  background-color: #3a1f42;
+  color: white;
 }

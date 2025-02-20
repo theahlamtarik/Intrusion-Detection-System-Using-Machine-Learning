@@ -9,11 +9,24 @@ body::-webkit-scrollbar-track {
 }
 
 body::-webkit-scrollbar-thumb {
-  background-color: #212529;
+  background-color: #3a1f42;
 }
 
 .navbar {
   font-family: "Lato", sans-serif;
+  background-color: #3a1f42 !important;
+}
+
+.bg-body-tertiary {
+  background-color: #3a1f42 !important;
+}
+
+.navbar-nav .nav-link {
+  color: rgba(255, 255, 255, 0.85) !important;
+}
+
+.navbar-nav .nav-link.active {
+  color: white !important;
 }
 
 body {
@@ -36,19 +49,25 @@ body {
   letter-spacing: 0.08rem;
   margin-top: 1rem;
   margin-bottom: 1rem;
+  margin: 2rem 0;
+  color: #3a1f42;
 }
 
 .with-border-bottom {
-  border-bottom: 1.5px solid #ffffff;
-  padding-bottom: 5px;
+  border-bottom: 2px solid #3a1f42;
+  padding-bottom: 0.5rem;
 }
 
 .card {
-  margin-bottom: 1rem;
+  margin-bottom: 2rem;
 }
 
 .card h5 {
   font-size: 1.1rem;
+}
+
+.card-title {
+  color: #3a1f42;
 }
 
 .card p {
@@ -75,7 +94,26 @@ body {
 
 .footer__title {
   padding: 1rem;
-  background-color: #212529;
+  background-color: #3a1f42;
   color: #ffffff;
   margin-bottom: -1rem;
+}
+
+/* Update the dark card styling */
+.card.text-bg-dark {
+    background-color: #3a1f42 !important;
+}
+
+.card.text-bg-dark .card-title {
+    color: white !important;
+    font-weight: bold;
+}
+
+.card.text-bg-dark .with-border-bottom {
+    border-bottom: 2px solid white;
+}
+
+.card.text-bg-dark .card-text {
+    color: rgba(255, 255, 255, 0.9);
+    line-height: 1.6;
 }

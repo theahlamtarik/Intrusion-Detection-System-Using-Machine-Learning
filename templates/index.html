@@ -11,20 +11,20 @@
       crossorigin="anonymous"
     />
     <link rel="stylesheet" href="../static/styles.css" />
-    <link rel="shortcut icon" href="../static/icon.jpg" type="image/x-icon" />
+    <link rel="shortcut icon" href="../static/ids_logo.jpg" type="image/x-icon" />
   </head>
   <body>
     <nav class="navbar navbar-expand-lg bg-body-tertiary" data-bs-theme="dark">
       <div class="container-fluid">
         <a class="navbar-brand" href="/">
           <img
-            src="../static/icon.jpg"
+            src="../static/ids_logo.jpg"
             alt="Logo"
             width="30"
             height="30"
             class="d-inline-block align-text-top rounded-circle"
           />
-          IDS
+          Intrusion Detection System
         </a>
         <button
           class="navbar-toggler"
@@ -58,23 +58,36 @@
     </nav>
 
     <div class="container custom-border">
-      <form method="POST" action="{{ url_for('results') }}">
+      <form method="POST" action="{{ url_for('results') }}" class="needs-validation" novalidate>
         <div class="container mb-4 text-center">
           <div class="row">
             <div class="col-md-6 mx-auto">
-              <label for="attackType" class="form-label"
-                >Simulate an input traffic by filling the below Traffic Features
-              </label>
-              <select class="form-select" id="attackType" name="attackType">
-                <option value="" disabled selected>
-                  Select an attack (pre-defined)
-                </option>
-                <option value="dos">Denial of Service (DOS)</option>
-                <option value="probe">Probe</option>
-                <option value="u2r">User to Root (U2R)</option>
-                <option value="r2l">Remote to Local (R2L)</option>
-                <option value="normal">Normal</option>
-              </select>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="inputMode" id="predefinedMode" value="predefined" checked>
+                <label class="form-check-label" for="predefinedMode">
+                    Predefined Attack
+                </label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="inputMode" id="manualMode" value="manual">
+                <label class="form-check-label" for="manualMode">
+                    Manual Entry
+                </label>
+              </div>
+              
+              <!-- Attack type selector (shown/hidden based on mode) -->
+              <div id="attackTypeContainer">
+                <select class="form-select" id="attackType" name="attackType">
+                  <option value="" disabled selected>
+                    Select an attack (pre-defined)
+                  </option>
+                  <option value="dos">Denial of Service (DOS)</option>
+                  <option value="probe">Probe</option>
+                  <option value="u2r">User to Root (U2R)</option>
+                  <option value="r2l">Remote to Local (R2L)</option>
+                  <option value="normal">Normal</option>
+                </select>
+              </div>
             </div>
           </div>
         </div>
@@ -89,6 +102,8 @@
                 id="duration"
                 name="duration"
                 placeholder="Length of time duration of the connection"
+                required
+                min="0"
               />
             </div>
             <div class="mb-3">
@@ -136,7 +151,7 @@
           <div class="col-md-6">
             <div class="mb-3">
               <label for="protocolType" class="form-label">Protocol Type</label>
-              <select class="form-select" id="protocolType" name="protocolType">
+              <select class="form-select" id="protocolType" name="protocolType" required>
                 <option value="" disabled selected>
                   Protocol used in the connection
                 </option>
@@ -205,84 +220,103 @@
     </div>
 
     <footer class="footer text-center">
-      <h6 class="footer__title">~ ABHIRAM D V S ~</h6>
+      <h6 class="footer__title">Presented by Ahlam TARIK</h6>
     </footer>
     <script>
-      // Event listener for the attackType dropdown
-      document
-        .getElementById("attackType")
-        .addEventListener("change", function () {
-          // Get the selected value
-          var selectedAttack = this.value;
-
-          // Update values based on the selected attack type
-          switch (selectedAttack) {
-            case "dos":
-              document.getElementById("duration").value = 0;
-              document.getElementById("service").value = "ecr_i";
-              document.getElementById("srcBytes").value = 1032;
-              document.getElementById("loggedIn").value = 0;
-              document.getElementById("sameDstnCount").value = 255;
-              document.getElementById("protocolType").value = "icmp";
-              document.getElementById("flag").value = "SF";
-              document.getElementById("dstnBytes").value = 0;
-              document.getElementById("wrongFragment").value = 0;
-              document.getElementById("samePortCount").value = 511;
-              break;
-            case "normal":
-              document.getElementById("duration").value = 0;
-              document.getElementById("service").value = "urp_i";
-              document.getElementById("srcBytes").value = 37;
-              document.getElementById("loggedIn").value = 0;
-              document.getElementById("sameDstnCount").value = 4;
-              document.getElementById("protocolType").value = "icmp";
-              document.getElementById("flag").value = "SF";
-              document.getElementById("dstnBytes").value = 4233;
-              document.getElementById("wrongFragment").value = 0;
-              document.getElementById("samePortCount").value = 1;
-              break;
-            case "u2r":
-              document.getElementById("duration").value = 58;
-              document.getElementById("service").value = "telnet";
-              document.getElementById("srcBytes").value = 2615;
-              document.getElementById("loggedIn").value = 1;
-              document.getElementById("sameDstnCount").value = 1;
-              document.getElementById("protocolType").value = "tcp";
-              document.getElementById("flag").value = "SF";
-              document.getElementById("dstnBytes").value = 4233;
-              document.getElementById("wrongFragment").value = 0;
-              document.getElementById("samePortCount").value = 1;
-
-              break;
-            case "r2l":
-              document.getElementById("duration").value = 0;
-              document.getElementById("service").value = "urp_i";
-              document.getElementById("srcBytes").value = 37;
-              document.getElementById("loggedIn").value = 0;
-              document.getElementById("sameDstnCount").value = 4;
-              document.getElementById("protocolType").value = "icmp";
-              document.getElementById("flag").value = "SF";
-              document.getElementById("dstnBytes").value = 4233;
-              document.getElementById("wrongFragment").value = 0;
-              document.getElementById("samePortCount").value = 1;
-              break;
-
-            case "probe":
-              document.getElementById("duration").value = 1;
-              document.getElementById("service").value = "private";
-              document.getElementById("srcBytes").value = 0;
-              document.getElementById("loggedIn").value = 0;
-              document.getElementById("sameDstnCount").value = 178;
-              document.getElementById("protocolType").value = "tcp";
-              document.getElementById("flag").value = "RSTR";
-              document.getElementById("dstnBytes").value = 0;
-              document.getElementById("wrongFragment").value = 0;
-              document.getElementById("samePortCount").value = 2;
-            default:
-              // Handle default case
-              break;
+      // Single event listener for attackType dropdown
+      document.getElementById("attackType").addEventListener("change", function() {
+          // Only process if in predefined mode
+          if (document.getElementById('predefinedMode').checked) {
+              var selectedAttack = this.value;
+              // Update values based on the selected attack type
+              switch (selectedAttack) {
+                case "dos":
+                  document.getElementById("duration").value = 0;
+                  document.getElementById("service").value = "ecr_i";
+                  document.getElementById("srcBytes").value = 1032;
+                  document.getElementById("loggedIn").value = 0;
+                  document.getElementById("sameDstnCount").value = 255;
+                  document.getElementById("protocolType").value = "icmp";
+                  document.getElementById("flag").value = "SF";
+                  document.getElementById("dstnBytes").value = 0;
+                  document.getElementById("wrongFragment").value = 0;
+                  document.getElementById("samePortCount").value = 511;
+                  break;
+                case "normal":
+                  document.getElementById("duration").value = 0;
+                  document.getElementById("service").value = "urp_i";
+                  document.getElementById("srcBytes").value = 37;
+                  document.getElementById("loggedIn").value = 0;
+                  document.getElementById("sameDstnCount").value = 4;
+                  document.getElementById("protocolType").value = "icmp";
+                  document.getElementById("flag").value = "SF";
+                  document.getElementById("dstnBytes").value = 4233;
+                  document.getElementById("wrongFragment").value = 0;
+                  document.getElementById("samePortCount").value = 1;
+                  break;
+                case "u2r":
+                  document.getElementById("duration").value = 58;
+                  document.getElementById("service").value = "telnet";
+                  document.getElementById("srcBytes").value = 2615;
+                  document.getElementById("loggedIn").value = 1;
+                  document.getElementById("sameDstnCount").value = 1;
+                  document.getElementById("protocolType").value = "tcp";
+                  document.getElementById("flag").value = "SF";
+                  document.getElementById("dstnBytes").value = 4233;
+                  document.getElementById("wrongFragment").value = 0;
+                  document.getElementById("samePortCount").value = 1;
+  
+                  break;
+                case "r2l":
+                  document.getElementById("duration").value = 0;
+                  document.getElementById("service").value = "urp_i";
+                  document.getElementById("srcBytes").value = 37;
+                  document.getElementById("loggedIn").value = 0;
+                  document.getElementById("sameDstnCount").value = 4;
+                  document.getElementById("protocolType").value = "icmp";
+                  document.getElementById("flag").value = "SF";
+                  document.getElementById("dstnBytes").value = 4233;
+                  document.getElementById("wrongFragment").value = 0;
+                  document.getElementById("samePortCount").value = 1;
+                  break;
+  
+                case "probe":
+                  document.getElementById("duration").value = 1;
+                  document.getElementById("service").value = "private";
+                  document.getElementById("srcBytes").value = 0;
+                  document.getElementById("loggedIn").value = 0;
+                  document.getElementById("sameDstnCount").value = 178;
+                  document.getElementById("protocolType").value = "tcp";
+                  document.getElementById("flag").value = "RSTR";
+                  document.getElementById("dstnBytes").value = 0;
+                  document.getElementById("wrongFragment").value = 0;
+                  document.getElementById("samePortCount").value = 2;
+                default:
+                  // Handle default case
+                  break;
+              }
           }
-        });
+      });
+  
+      // Event listener for input mode radio buttons
+      document.querySelectorAll('input[name="inputMode"]').forEach(radio => {
+          radio.addEventListener('change', function() {
+              const attackTypeContainer = document.getElementById('attackTypeContainer');
+              const attackTypeSelect = document.getElementById('attackType');
+              const formFields = document.querySelectorAll('input:not([name="inputMode"]), select:not([name="inputMode"])');
+              
+              if (this.value === 'predefined') {
+                  attackTypeContainer.style.display = 'block';
+                  attackTypeSelect.required = true;
+              } else {
+                  attackTypeContainer.style.display = 'none';
+                  attackTypeSelect.required = false;
+                  attackTypeSelect.value = '';
+              }
+              // Clear all form fields when switching modes
+              formFields.forEach(field => field.value = '');
+          });
+      });
     </script>
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
