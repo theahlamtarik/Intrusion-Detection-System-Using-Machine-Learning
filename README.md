@@ -48,7 +48,7 @@ IDS_ML_FLASK/
 
 1. Clone the repository
 ```bash
-git clone https://github.com/theahlamtarik/IDS_ML_FLASK.git
+git clone https://github.com/theahlamtarik/Intrusion-Detection-System-Using-Machine-Learning.git
 cd IDS_ML_FLASK
 ```
 
@@ -94,12 +94,5 @@ The system analyzes various network parameters including:
 - Error rates
 - And more...
 
-## Dataset
 
-This project uses the NSL-KDD dataset, an improved version of the original KDD Cup 1999 dataset. It solves some of the inherent problems of the original KDD'99 dataset and is available on Kaggle:
-- [NSL-KDD Dataset](https://www.kaggle.com/datasets/hassan06/nslkdd)
-- Contains 41 features for each network connection
-- Includes both training and testing datasets
-- Removes redundant records from the original KDD dataset
-- Has reasonable number of records for experiments
 
